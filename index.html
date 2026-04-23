@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王涛我们爱你</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a0a1a 50%, #0d0d1a 100%);
+    font-family: 'Ma Shan Zheng', serif;
+    position: relative;
+  }
+
+  /* Dreamy background layers */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Soft gradient aurora */
+  .aurora {
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255,105,135,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,182,193,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse 100% 60% at 50% 100%, rgba(255,160,180,0.08) 0%, transparent 40%);
+    animation: aurora-drift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-drift {
+    0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; transform: scale(1.1) rotate(3deg); }
+  }
+
+  /* Stars background */
+  .stars {
+    z-index: 1;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--duration) ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Floating hearts */
+  .floating-hearts {
+    z-index: 2;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: var(--size);
+    opacity: 0;
+    animation: float-heart var(--duration) ease-in-out infinite;
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+
+  @keyframes float-heart {
+    0% { opacity: 0; transform: translateY(100vh) rotate(0deg) scale(0.5); }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-20vh) rotate(360deg) scale(1); }
+  }
+
+  /* Rose petals */
+  .petals {
+    z-index: 3;
+  }
+
+  .petal {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4, #db7093);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0;
+    animation: petal-fall var(--duration) ease-in-out infinite;
+    filter: blur(0.5px);
+  }
+
+  @keyframes petal-fall {
+    0% { opacity: 0; transform: translateY(-10vh) rotate(0deg) translateX(0); }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(110vh) rotate(720deg) translateX(var(--drift)); }
+  }
+
+  /* Glowing orb behind text */
+  .glow-orb {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+      rgba(255,105,135,0.2) 0%, 
+      rgba(255,182,193,0.12) 30%, 
+      rgba(255,160,180,0.06) 50%,
+      transparent 70%);
+    animation: pulse-orb 6s ease-in-out infinite;
+    z-index: 4;
+    filter: blur(40px);
+  }
+
+  @keyframes pulse-orb {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.4); opacity: 1; }
+  }
+
+  /* Multiple glow orbs */
+  .glow-orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,182,193,0.15) 0%, transparent 60%);
+    animation: pulse-orb-2 8s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+
+  @keyframes pulse-orb-2 {
+    0%, 100% { transform: scale(1.2) translateX(-100px); opacity: 0.5; }
+    50% { transform: scale(1) translateX(100px); opacity: 0.8; }
+  }
+
+  /* Main text container */
+  .text-container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px;
+  }
+
+  /* Decorative frame */
+  .frame {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,182,193,0.2);
+    border-radius: 20px;
+    animation: frame-glow 4s ease-in-out infinite;
+  }
+
+  .frame::before,
+  .frame::after {
+    content: '✦';
+    position: absolute;
+    color: rgba(255,182,193,0.5);
+    font-size: 1.5rem;
+  }
+
+  .frame::before { top: -10px; left: 50%; transform: translateX(-50%); }
+  .frame::after { bottom: -10px; left: 50%; transform: translateX(-50%); }
+
+  @keyframes frame-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(255,105,135,0.1), inset 0 0 30px rgba(255,182,193,0.05); }
+    50% { box-shadow: 0 0 60px rgba(255,105,135,0.2), inset 0 0 60px rgba(255,182,193,0.1); }
+  }
+
+  .love-text {
+    font-size: clamp(2.8rem, 10vw, 7rem);
+    color: transparent;
+    background: linear-gradient(
+      135deg,
+      #ffb6c1 0%,
+      #ff69b4 25%,
+      #ffd700 50%,
+      #ff69b4 75%,
+      #ffb6c1 100%
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradient-shift 8s ease-in-out infinite, text-appear 2s ease-out forwards;
+    letter-spacing: 0.2em;
+    filter: drop-shadow(0 0 40px rgba(255,105,135,0.5)) drop-shadow(0 0 80px rgba(255,182,193,0.3));
+    opacity: 0;
+    position: relative;
+  }
+
+  /* Text glow effect */
+  .love-text::after {
+    content: '王涛我们爱你';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #fff 0%, #ffb6c1 50%, #fff 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0;
+    animation: text-shimmer 3s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes text-shimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes text-appear {
+    0%   { opacity: 0; transform: scale(0.3) translateY(30px); }
+    70%  { opacity: 1; transform: scale(1.05) translateY(-5px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Heartbeat ring effect */
+  .heartbeat-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 250%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255,105,135,0.2);
+    border-radius: 50%;
+    animation: heartbeat 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .heartbeat-ring:nth-child(2) { animation-delay: 1.3s; border-color: rgba(255,182,193,0.15); }
+  .heartbeat-ring:nth-child(3) { animation-delay: 2.6s; border-color: rgba(255,215,0,0.1); }
+
+  @keyframes heartbeat {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+  }
+
+  /* Sparkle characters */
+  .sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 11;
+  }
+
+  .sparkle {
+    position: absolute;
+    font-size: var(--size);
+    opacity: 0;
+    animation: sparkle-pop 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+  }
+
+  @keyframes sparkle-pop {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    15%      { opacity: 1; transform: scale(1.2) rotate(180deg); }
+    30%      { opacity: 0.8; transform: scale(1) rotate(360deg); }
+    85%      { opacity: 0; transform: scale(0.5) rotate(540deg); }
+  }
+
+  /* Music player */
+  .music-player {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,105,135,0.08);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,182,193,0.15);
+    border-radius: 50px;
+    padding: 12px 28px;
+    transition: all 0.4s ease;
+  }
+
+  .music-player:hover {
+    background: rgba(255,105,135,0.12);
+    border-color: rgba(255,182,193,0.25);
+    transform: translateX(-50%) scale(1.02);
+  }
+
+  .play-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #ff69b4, #ffb6c1);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(255,105,135,0.4);
+    transition: all 0.3s ease;
+  }
+
+  .play-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 50px rgba(255,105,135,0.6);
+  }
+
+  .song-info {
+    color: rgba(255,182,193,0.9);
+    font-size: 0.9rem;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+    white-space: nowrap;
+  }
+
+  .song-title { font-weight: 600; color: #ffb6c1; }
+  .song-artist { opacity: 0.7; margin-left: 8px; }
+
+  /* Audio visualizer */
+  .visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 24px;
+  }
+
+  .bar {
+    width: 4px;
+    background: linear-gradient(to top, #ff69b4, #ffd700);
+    border-radius: 3px;
+    animation: bar-dance 0.8s ease-in-out infinite alternate;
+    opacity: 0.4;
+  }
+
+  .playing .bar { opacity: 1; }
+
+  .bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+  .bar:nth-child(2) { height: 18px; animation-delay: 0.1s; }
+  .bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+  .bar:nth-child(4) { height: 22px; animation-delay: 0.15s; }
+  .bar:nth-child(5) { height: 14px; animation-delay: 0.05s; }
+
+  @keyframes bar-dance {
+    0%   { transform: scaleY(0.3); }
+    100% { transform: scaleY(1); }
+  }
+
+  /* Start overlay */
+  .start-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(26,10,26,0.95) 0%, rgba(13,13,26,0.98) 100%);
+    cursor: pointer;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+
+  .start-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .start-overlay .heart-icon {
+    font-size: 5rem;
+    animation: pulse-heart 1.2s ease-in-out infinite;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 40px rgba(255,105,135,0.6));
+  }
+
+  @keyframes pulse-heart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  .start-overlay .start-text {
+    color: rgba(255,182,193,0.8);
+    font-size: 1.2rem;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+    letter-spacing: 0.15em;
+    animation: blink-soft 2.5s ease-in-out infinite;
+  }
+
+  @keyframes blink-soft {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* Small decorative text */
+  .dedication {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,182,193,0.3);
+    font-size: 0.8rem;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+    letter-spacing: 0.3em;
+    z-index: 15;
+    opacity: 0;
+    animation: fade-in 2s ease-out 2.5s forwards;
+  }
+
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Start overlay -->
+<div class="start-overlay" id="startOverlay">
+  <div class="heart-icon">💖</div>
+  <div class="start-text">点击任意处，开启爱的告白</div>
+</div>
+
+<!-- Background layers -->
+<div class="bg-layer aurora"></div>
+<div class="bg-layer stars" id="stars"></div>
+<div class="bg-layer floating-hearts" id="floatingHearts"></div>
+<div class="bg-layer petals" id="petals"></div>
+
+<!-- Glowing orbs -->
+<div class="glow-orb"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<!-- Main content -->
+<div class="text-container">
+  <div class="frame"></div>
+  <div class="heartbeat-ring"></div>
+  <div class="heartbeat-ring"></div>
+  <div class="heartbeat-ring"></div>
+  <div class="love-text">王涛我们爱你</div>
+  <div class="sparkles" id="sparkles"></div>
+</div>
+
+<div class="dedication">Forever & Always</div>
+
+<!-- Music player -->
+<div class="music-player" id="musicPlayer">
+  <button class="play-btn" id="playBtn" onclick="togglePlay()">❚❚</button>
+  <div class="visualizer playing" id="visualizer">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+  <div class="song-info">
+    <span class="song-title">因为爱情</span>
+    <span class="song-artist">陈奕迅 / 王菲</span>
+  </div>
+</div>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://music.163.com/song/media/outer/url?id=64317.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById('bgMusic');
+  const playBtn = document.getElementById('playBtn');
+  const visualizer = document.getElementById('visualizer');
+  const overlay = document.getElementById('startOverlay');
+  let isPlaying = false;
+
+  overlay.addEventListener('click', startExperience);
+
+  function startExperience() {
+    audio.play().then(() => {
+      isPlaying = true;
+      playBtn.textContent = '❚❚';
+      visualizer.classList.add('playing');
+    }).catch(() => {});
+    overlay.classList.add('hidden');
+  }
+
+  function togglePlay() {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      playBtn.textContent = '▶';
+      visualizer.classList.remove('playing');
+    } else {
+      audio.play().then(() => {
+        isPlaying = true;
+        playBtn.textContent = '❚❚';
+        visualizer.classList.add('playing');
+      });
+    }
+  }
+
+  // Generate stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 1;
+    star.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --duration: ${Math.random() * 3 + 2}s;
+      animation-delay: ${Math.random() * 3}s;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  // Generate floating hearts
+  const heartsContainer = document.getElementById('floatingHearts');
+  const heartColors = ['#ff69b4', '#ffb6c1', '#ff1493', '#db7093', '#ffc0cb'];
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💕';
+    const size = Math.random() * 1.5 + 1;
+    heart.style.cssText = `
+      --size: ${size}rem;
+      left: ${Math.random() * 100}%;
+      --duration: ${Math.random() * 10 + 15}s;
+      animation-delay: ${Math.random() * 15}s;
+      color: ${heartColors[Math.floor(Math.random() * heartColors.length)]};
+    `;
+    heartsContainer.appendChild(heart);
+  }
+
+  // Generate rose petals
+  const petalsContainer = document.getElementById('petals');
+  for (let i = 0; i < 20; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = Math.random() * 12 + 8;
+    petal.style.cssText = `
+      --size: ${size}px;
+      left: ${Math.random() * 100}%;
+      --duration: ${Math.random() * 8 + 12}s;
+      --drift: ${(Math.random() - 0.5) * 200}px;
+      animation-delay: ${Math.random() * 10}s;
+    `;
+    petalsContainer.appendChild(petal);
+  }
+
+  // Generate sparkles
+  const sparklesContainer = document.getElementById('sparkles');
+  const emojis = ['✨', '💫', '⭐', '🌟', '💝', '💗'];
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    const angle = (i / 16) * Math.PI * 2;
+    const radiusX = 55 + Math.random() * 15;
+    const radiusY = 100 + Math.random() * 30;
+    const x = 50 + Math.cos(angle) * radiusX;
+    const y = 50 + Math.sin(angle) * radiusY;
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.cssText = `
+      --size: ${Math.random() * 1 + 0.8}rem;
+      left: ${x}%;
+      top: ${y}%;
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    sparklesContainer.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
